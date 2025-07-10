@@ -24,7 +24,13 @@ def enrich_current_prices(summary_df):
     # Define Crew config with a python agent and fetch_price task
     config = {
         "agents": [
-            {"name": "python", "type": "python"}
+            {
+                "name": "python_agent",
+                "type": "python",
+                "role": "execution",
+                "goal": "Execute Python code to fetch current stock prices",
+                "backstory": "This agent runs Python functions provided as tasks"
+            }
         ],
         "tasks": [
             {
@@ -32,7 +38,7 @@ def enrich_current_prices(summary_df):
                 "description": "Fetch current market price for a given stock symbol",
                 "expected_output": "current_price",
                 "run": fetch_current_price,
-                "agent": "python"
+                "agent": "python_agent"
             }
         ]
     }
