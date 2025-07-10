@@ -57,5 +57,4 @@ def parse_tradebook(file) -> pd.DataFrame:
     summary['Avg_Price'] = summary['Avg_Price'].round(2)
     summary['Total_Value'] = summary['Total_Value'].round(2)
     
-    uploaded_file.seek(0)
     return summary
