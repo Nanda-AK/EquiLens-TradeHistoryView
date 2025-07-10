@@ -23,9 +23,9 @@ with st.container():
         if uploaded_file:
             try:
                 summary_df = parse_tradebook(uploaded_file)
-                st.success("✅ Tradebook upload/parsed successfully.")
+                st.success("✅ Tradebook file upload successfully.")
             except Exception as e:
-                st.error(f"❌ Error upload/processing file: {e}")
+                st.error(f"❌ Error Tradebook file upload failed: {e}")
                 summary_df = None
         else:
             summary_df = None
