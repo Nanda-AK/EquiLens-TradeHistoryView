@@ -34,6 +34,7 @@ with st.container():
     if uploaded_file:
         try:
             summary_df = parse_tradebook(uploaded_file)
+            uploaded_file.seek(0)
             df = pd.read_csv(uploaded_file)
             oldest_date, latest_date = get_trade_date_range(uploaded_file)
     
