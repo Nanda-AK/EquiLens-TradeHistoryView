@@ -22,11 +22,18 @@ def fetch_current_price(context):
 
 # Enrich a summary DataFrame by adding a "Current Price" column via CrewAI
 def enrich_current_prices(summary_df):
-    # Instantiate Crew with tasks
-    tasks = [Task(name="fetch_price", run=fetch_current_price)]
-    crew = Crew(tasks=tasks)
+    # Define the Task with description and expected_output
+    fetch_task = Task(
+        name="fetch_price",
+        description="Fetch current market price for a given stock symbol",
+        expected_output=["current_price"],
+        run=fetch_current_price
+    )
+    # Instantiate Crew with tasks list
+    crew = Crew(tasks=[fetch_task])
     prices = {}
     for symbol in summary_df["Stock Name"].unique():
+        # Run the single-task crew flow
         result = crew.run({"symbol": symbol})
         prices[symbol] = result.get("current_price")
     summary_df["Current Price"] = summary_df["Stock Name"].map(prices)
