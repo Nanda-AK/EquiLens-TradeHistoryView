@@ -36,15 +36,6 @@ tbody tr td {
     color: #ffffff;
 }
 
-.upload-box {
-    background-color: #1f2f46;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #4FC3F7;
-    text-align: center;
-    margin-top: -60px;
-}
-
 .table-container {
     display: flex;
     justify-content: center;
