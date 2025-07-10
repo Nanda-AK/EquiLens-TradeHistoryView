@@ -7,7 +7,7 @@ def parse_tradebook(file) -> pd.DataFrame:
     Parses a Zerodha tradebook CSV and summarizes buy/sell activity.
     """
 
-    uploaded_file.seek(0)
+    
     df = pd.read_csv(file)
 
     # Normalize column names
