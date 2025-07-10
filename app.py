@@ -41,7 +41,7 @@ with st.container():
             with center:
 
                 # Subheader
-                st.subheader("Trade Summary")
+                #st.subheader("Trade Summary")
                 st.subheader(f"Trade Summary between {oldest_date} to {latest_date}")
                 
                 # Row styling for Buy/Sell
