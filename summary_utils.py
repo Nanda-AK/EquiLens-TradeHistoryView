@@ -2,7 +2,7 @@ import pandas as pd
 
 REQUIRED_COLUMNS = ['symbol', 'trade_type', 'quantity', 'price', 'trade_date']
 
-def get_trade_date_range(df) -> pd.DataFrame:
+def get_trade_date_range(df):
     df_copy = df.copy()
     df_copy['trade_date'] = pd.to_datetime(df_copy['trade_date'], dayfirst=True)
     oldest_date = df_copy['trade_date'].min().strftime("%d-%b-%Y")
