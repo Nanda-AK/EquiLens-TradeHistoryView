@@ -50,5 +50,6 @@ tbody tr td {
     justify-content: center;
     padding-top: 20px;
     margin-bottom: 60px;
-    max-width: 90vw;
+    max-width: 30vw;
+    border: 2px solid red; /* visualize the container */
 }
