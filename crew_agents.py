@@ -26,7 +26,7 @@ def enrich_current_prices(summary_df):
     fetch_task = Task(
         name="fetch_price",
         description="Fetch current market price for a given stock symbol",
-        expected_output=["current_price"],
+        expected_output="current_price",
         run=fetch_current_price
     )
     # Instantiate Crew with tasks list
