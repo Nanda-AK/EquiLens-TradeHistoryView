@@ -1,0 +1,44 @@
+/* Backgrounds */
+body {
+    background-color: #0e1a2b;
+    color: #ffffff;
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+    color: #4FC3F7 !important;
+}
+
+/* File uploader tweak */
+.css-1n76uvr {
+    background-color: #111827;
+    color: white;
+    border: 1px solid #4FC3F7;
+    border-radius: 6px;
+}
+
+/* Button style */
+.stButton > button {
+    background-color: #1f2f46;
+    color: #ffffff;
+    border: 1px solid #4FC3F7;
+    border-radius: 6px;
+}
+
+/* Table improvements */
+thead tr th {
+    background-color: #1a2738;
+    color: #ffffff;
+}
+
+tbody tr td {
+    background-color: #111827;
+    color: #ffffff;
+}
+
+.stDataFrame {
+    padding: 12px;
+    border-radius: 6px;
+    background-color: #111827;
+    margin: 0 auto;
+}
