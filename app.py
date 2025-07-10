@@ -33,10 +33,9 @@ with st.container():
         # --- PROCESS CSV ---
     if uploaded_file:
         try:
+            summary_df = parse_tradebook(uploaded_file)
             df = pd.read_csv(uploaded_file)
             oldest_date, latest_date = get_trade_date_range(uploaded_file)
-            summary_df = parse_tradebook(uploaded_file)
-            
     
             # Recommended layout: center the table using Streamlit's grid
             left, center, right = st.columns([1, 6, 1])
