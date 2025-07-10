@@ -5,7 +5,7 @@ from crew_agents import enrich_current_prices, create_summary_agent
 
 # — Load OpenAI key from Streamlit secrets into env
 import os
-os.environ[\"OPENAI_API_KEY\"] = st.secrets[\"openai\"][\"api_key\"]
+os.environ["OPENAI_API_KEY"] = st.secrets["openai"]["api_key"]
 
 st.set_page_config(page_title="Trade History Visualization", layout="wide")
 
