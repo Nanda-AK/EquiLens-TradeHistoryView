@@ -39,7 +39,7 @@ with st.container():
 
             # Use a real Streamlit container for layout control
             with st.container():
-                st.dataframe(summary_df, use_container_width=True, height=300)
+                st.dataframe(summary_df, use_container_width=True, height=500)
 
             
         except Exception as e:
