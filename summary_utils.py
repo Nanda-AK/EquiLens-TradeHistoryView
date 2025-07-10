@@ -11,7 +11,6 @@ def get_trade_date_range(df):
 
 
 def parse_tradebook(file) -> pd.DataFrame:
-    import pandas as pd
 
     file.seek(0)  # ✅ Reset pointer before parsing
     df = pd.read_csv(file)
