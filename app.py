@@ -38,7 +38,7 @@ with st.container():
             left, center, right = st.columns([1, 6, 1])
 
             with center:
-                st.subheader("Trade Summary Table")
+                st.subheader("Trade Summary")
                 st.dataframe(summary_df, use_container_width=True, height=500)
 
 
