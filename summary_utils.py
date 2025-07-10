@@ -3,13 +3,11 @@ import pandas as pd
 REQUIRED_COLUMNS = ['symbol', 'trade_type', 'quantity', 'price']
 
 def parse_tradebook(file) -> pd.DataFrame:
-    """
-    Parses a Zerodha tradebook CSV and summarizes buy/sell activity.
-    """
+    import pandas as pd
 
-    
+    file.seek(0)  # ✅ Reset pointer before parsing
     df = pd.read_csv(file)
-
+    
     # Normalize column names
     df.columns = df.columns.str.strip().str.lower()
 
