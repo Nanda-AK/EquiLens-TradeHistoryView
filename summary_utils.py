@@ -1,6 +1,6 @@
 import pandas as pd
 
-REQUIRED_COLUMNS = ['symbol', 'trade type', 'quantity', 'price']
+REQUIRED_COLUMNS = ['symbol', 'trade_type', 'quantity', 'price']
 
 def parse_tradebook(file) -> pd.DataFrame:
     """
@@ -9,22 +9,22 @@ def parse_tradebook(file) -> pd.DataFrame:
 
     df = pd.read_csv(file)
 
-    # Normalize column names: lowercase and strip spaces
+    # Normalize column names
     df.columns = df.columns.str.strip().str.lower()
 
-    # Ensure required columns exist
+    # Validate required columns
     missing = [col for col in REQUIRED_COLUMNS if col not in df.columns]
     if missing:
         raise ValueError(f"Missing required columns in CSV: {', '.join(missing)}")
 
-    # Optional filtering: only EQ segment if present
+    # Optional: filter for segment == EQ
     if 'segment' in df.columns:
         df = df[df['segment'].str.upper() == 'EQ']
 
-    # Rename for summary
+    # Clean and rename
     df = df.rename(columns={
         'symbol': 'Stock Name',
-        'trade type': 'Buy/Sell Type',
+        'trade_type': 'Buy/Sell Type',
         'quantity': 'Quantity',
         'price': 'Price'
     })
