@@ -38,8 +38,11 @@ with st.container():
             left, center, right = st.columns([1, 6, 1])
 
             with center:
+
+                # Subheader
                 st.subheader("Trade Summary")
-                # Color rows based on Buy/Sell Type
+                
+                # Row styling for Buy/Sell
                 def highlight_buysell(row):
                     if row['Buy/Sell Type'].upper() == 'BUY':
                         return ['background-color: #144d3f; color: white'] * len(row)
@@ -47,20 +50,22 @@ with st.container():
                         return ['background-color: #4a1f1f; color: white'] * len(row)
                     else:
                         return [''] * len(row)
-                    # Color rows based on Buy/Sell Type
-                    def highlight_buysell(row):
-                        if row['Buy/Sell Type'].upper() == 'BUY':
-                            return ['background-color: #144d3f; color: white'] * len(row)
-                        elif row['Buy/Sell Type'].upper() == 'SELL':
-                            return ['background-color: #4a1f1f; color: white'] * len(row)
-                        else:
-                            return [''] * len(row)
-                    
-                    # Apply styling
-                    styled_df = summary_df.style.apply(highlight_buysell, axis=1)
-                    
-                    # Display styled DataFrame (interactive!)
-                    st.dataframe(styled_df, use_container_width=True, height=500)             
+                
+                # Format + style
+                styled_df = (
+                    summary_df
+                    .style
+                    .apply(highlight_buysell, axis=1)
+                    .format({
+                        'Quantity': '{:,.0f}',       # No decimal
+                        'Avg_Price': '{:,.2f}',      # Two decimal
+                        'Total_Value': '{:,.0f}'     # No decimal
+                    })
+                )
+                
+                # Display
+                st.dataframe(styled_df, use_container_width=True, height=500)
+     
 
 
             
