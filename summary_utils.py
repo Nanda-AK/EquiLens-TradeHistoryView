@@ -14,7 +14,7 @@ def get_trade_date_range(uploaded_file):
 
 def parse_tradebook(file) -> pd.DataFrame:
 
-    uploaded_file.seek(0)
+
     file.seek(0)  # ✅ Reset pointer before parsing
     df = pd.read_csv(file)
     
