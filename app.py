@@ -41,11 +41,6 @@ if uploaded_file:
         st.markdown("<div class='table-container'>", unsafe_allow_html=True)
         st.dataframe(summary_df, use_container_width=False)
         st.markdown("</div>", unsafe_allow_html=True)
-        
-        if summary_df is not None:
-            st.markdown("<div class='table-container'>", unsafe_allow_html=True)
-            st.dataframe(summary_df, use_container_width=True, height=500)
-            st.markdown("</div>", unsafe_allow_html=True)
     
     except Exception as e:
         st.error(f"❌ Error processing file: {e}")
