@@ -1,23 +1,27 @@
 import pandas as pd
 
+REQUIRED_COLUMNS = ['symbol', 'trade type', 'quantity', 'price']
+
 def parse_tradebook(file) -> pd.DataFrame:
     """
-    Parses a Zerodha tradebook CSV file and returns a summary DataFrame.
-
-    Columns in tradebook typically include:
-    ['Trade Date', 'Exchange', 'Segment', 'Instrument Type', 'Symbol', 'Trade Type',
-     'Quantity', 'Price', 'Order No', ...]
+    Parses a Zerodha tradebook CSV and summarizes buy/sell activity.
     """
 
     df = pd.read_csv(file)
 
-    # Filter only Equity trades (optional: Segment == 'EQ')
-    df = df[df['Segment'].str.upper() == 'EQ']
-
-    # Normalize column names
+    # Normalize column names: lowercase and strip spaces
     df.columns = df.columns.str.strip().str.lower()
 
-    # Rename for simplicity
+    # Ensure required columns exist
+    missing = [col for col in REQUIRED_COLUMNS if col not in df.columns]
+    if missing:
+        raise ValueError(f"Missing required columns in CSV: {', '.join(missing)}")
+
+    # Optional filtering: only EQ segment if present
+    if 'segment' in df.columns:
+        df = df[df['segment'].str.upper() == 'EQ']
+
+    # Rename for summary
     df = df.rename(columns={
         'symbol': 'Stock Name',
         'trade type': 'Buy/Sell Type',
@@ -25,7 +29,12 @@ def parse_tradebook(file) -> pd.DataFrame:
         'price': 'Price'
     })
 
-    # Group by Stock and Buy/Sell Type
+    # Ensure numeric
+    df['Quantity'] = pd.to_numeric(df['Quantity'], errors='coerce')
+    df['Price'] = pd.to_numeric(df['Price'], errors='coerce')
+    df.dropna(subset=['Quantity', 'Price'], inplace=True)
+
+    # Compute summary
     summary = (
         df.groupby(['Stock Name', 'Buy/Sell Type'])
         .agg(
@@ -36,7 +45,6 @@ def parse_tradebook(file) -> pd.DataFrame:
         .reset_index()
     )
 
-    # Round values for display
     summary['Avg_Price'] = summary['Avg_Price'].round(2)
     summary['Total_Value'] = summary['Total_Value'].round(2)
 
