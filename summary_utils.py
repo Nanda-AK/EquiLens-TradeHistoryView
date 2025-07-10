@@ -54,7 +54,7 @@ def parse_tradebook(file) -> pd.DataFrame:
     # parse exactly as YYYY-MM-DD, coerce any bad values to NaT
     df['trade_date'] = pd.to_datetime(
         df['trade_date'],
-        format='%d/%m/%Y',
+        format='%Y-%m-%d',
         errors='coerce'
     )
 
