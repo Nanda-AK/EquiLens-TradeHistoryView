@@ -15,9 +15,7 @@ st.markdown("<h1 style='text-align: left; margin-bottom: 10px;'>Trade History Vi
 with st.container():
     col1, col2, col3 = st.columns([4, 1, 2])
     with col3:
-        st.markdown("<div class='upload-box'>", unsafe_allow_html=True)
         uploaded_file = st.file_uploader("Upload CSV", type=["csv"], label_visibility="collapsed")
-        st.markdown("</div>", unsafe_allow_html=True)
 
         # ✅ Move success message *inside* the same column
         if uploaded_file:
