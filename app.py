@@ -30,15 +30,15 @@ with st.container():
 
 
         # --- PROCESS CSV ---
-        if uploaded_file:
-            try:
-                summary_df = parse_tradebook(uploaded_file)
-                st.success("✅ Tradebook parsed successfully.")
+    if uploaded_file:
+        try:
+            summary_df = parse_tradebook(uploaded_file)
+            st.success("✅ Tradebook parsed successfully.")
         
-                # Center the summary table
-                st.markdown("<div class='table-container'>", unsafe_allow_html=True)
-                st.dataframe(summary_df, use_container_width=False)
-                st.markdown("</div>", unsafe_allow_html=True)
+            # Center the summary table
+            st.markdown("<div class='table-container'>", unsafe_allow_html=True)
+            st.dataframe(summary_df, use_container_width=False)
+            st.markdown("</div>", unsafe_allow_html=True)
             
-            except Exception as e:
-                st.error(f"❌ Error processing file: {e}")
+        except Exception as e:
+            st.error(f"❌ Error processing file: {e}")
