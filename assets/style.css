@@ -36,4 +36,11 @@ tbody tr td {
     color: #ffffff;
 }
 
+.stDataFrame {
+    padding: 12px;
+    border-radius: 6px;
+    background-color: #111827;
+    width: 95% !important;
+    margin: 0 auto;
+}
 
