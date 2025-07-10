@@ -5,9 +5,7 @@ sys.modules['sqlite3'] = pysqlite3
 import os
 from crewai import Crew, Task
 from yfinance import Ticker
-# Use ChatOpenAI for LLM
 from langchain.chat_models import ChatOpenAI
-# Updated import for pandas dataframe agent
 from langchain_experimental.agents import create_pandas_dataframe_agent
 
 # Task to fetch the live price of a given symbol
@@ -15,6 +13,7 @@ def fetch_current_price(context):
     symbol = context.get("symbol")
     try:
         ticker = Ticker(symbol)
+        # Use regularMarketPrice or fallback to currentPrice
         price = ticker.info.get("regularMarketPrice") or ticker.info.get("currentPrice")
     except Exception:
         price = None
@@ -23,8 +22,9 @@ def fetch_current_price(context):
 
 # Enrich a summary DataFrame by adding a "Current Price" column via CrewAI
 def enrich_current_prices(summary_df):
-    crew = Crew()
-    crew.add_task(Task(name="fetch_price", run=fetch_current_price))
+    # Instantiate Crew with tasks
+    tasks = [Task(name="fetch_price", run=fetch_current_price)]
+    crew = Crew(tasks=tasks)
     prices = {}
     for symbol in summary_df["Stock Name"].unique():
         result = crew.run({"symbol": symbol})
