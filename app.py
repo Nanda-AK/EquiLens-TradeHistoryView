@@ -74,17 +74,17 @@ with st.container():
                 # Display
                 st.dataframe(styled_df, use_container_width=True, height=500)
 
-    # —— Use Case 2: Chat with your summary via a React‐style agent
-    st.markdown("## Chat with Your Trade Summary")
-    if "agent" not in st.session_state:
-        st.session_state.agent = create_summary_agent(summary_df)
+        # ─── Chat UI ───────────────────────────────────
+        # This must be _outside_ the try/except above:
+        st.markdown("## Chat with Your Trade Summary")
     
-    question = st.text_input("Ask a question about your trades:", key="trade_query")
-    if question:
-        answer = st.session_state.agent.run(question)
-        st.write(answer)     
-
-
+        if "agent" not in st.session_state:
+            st.session_state.agent = create_summary_agent(summary_df)
+    
+        question = st.text_input("Ask a question about your trades:", key="trade_query")
+        if question:
+            answer = st.session_state.agent.run(question)
+            st.write(answer)    
             
         except Exception as e:
             st.error(f"❌ Error processing file: {e}")
