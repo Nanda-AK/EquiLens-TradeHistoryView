@@ -2,15 +2,6 @@ import pandas as pd
 
 REQUIRED_COLUMNS = ['symbol', 'trade_type', 'quantity', 'price', 'trade_date']
 
-def get_trade_date_range(uploaded_file):
-    uploaded_file.seek(0)  # Reset file pointer before reading again
-    df = pd.read_csv(uploaded_file)
-    df['trade_date'] = pd.to_datetime(df['trade_date'], dayfirst=True)
-    oldest_date = df['trade_date'].min().strftime("%d-%b-%Y")
-    latest_date = df['trade_date'].max().strftime("%d-%b-%Y")
-    uploaded_file.seek(0)  # Reset again to ensure original logic unaffected
-    return oldest_date, latest_date
-
 
 def parse_tradebook(file) -> pd.DataFrame:
 
@@ -56,5 +47,9 @@ def parse_tradebook(file) -> pd.DataFrame:
 
     summary['Avg_Price'] = summary['Avg_Price'].round(2)
     summary['Total_Value'] = summary['Total_Value'].round(2)
+
+    df['trade_date'] = pd.to_datetime(df['trade_date'], dayfirst=True)
+    oldest_date = df['trade_date'].min().strftime("%d-%b-%Y")
+    latest_date = df['trade_date'].max().strftime("%d-%b-%Y")
     
-    return summary
+    return summary, oldest_date, latest_date
