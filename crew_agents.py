@@ -5,7 +5,8 @@ sys.modules['sqlite3'] = pysqlite3
 import os
 from crewai import Crew, Task
 from yfinance import Ticker
-from langchain.llms import OpenAI
+# Import OpenAI LLM directly to avoid langchain_community fallback
+from langchain.llms.openai import OpenAI
 from langchain.agents import create_pandas_dataframe_agent
 
 # Task to fetch the live price of a given symbol
