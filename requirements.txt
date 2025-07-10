@@ -4,3 +4,5 @@ yfinance
 langchain
 openai
 crewai
+chromadb
+pysqlite3-binary
