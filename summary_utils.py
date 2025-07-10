@@ -1,6 +1,14 @@
 import pandas as pd
 
-REQUIRED_COLUMNS = ['symbol', 'trade_type', 'quantity', 'price']
+REQUIRED_COLUMNS = ['symbol', 'trade_type', 'quantity', 'price', 'trade_date']
+
+def get_trade_date_range(df):
+    df_copy = df.copy()
+    df_copy['trade_date'] = pd.to_datetime(df_copy['trade_date'], dayfirst=True)
+    oldest_date = df_copy['trade_date'].min().strftime("%d-%b-%Y")
+    latest_date = df_copy['trade_date'].max().strftime("%d-%b-%Y")
+    return oldest_date, latest_date
+
 
 def parse_tradebook(file) -> pd.DataFrame:
     import pandas as pd
