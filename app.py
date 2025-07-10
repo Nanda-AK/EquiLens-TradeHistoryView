@@ -19,6 +19,18 @@ with st.container():
         uploaded_file = st.file_uploader("Upload CSV", type=["csv"], label_visibility="collapsed")
         st.markdown("</div>", unsafe_allow_html=True)
 
+        # ✅ Move success message *inside* the same column
+        if uploaded_file:
+            try:
+                summary_df = parse_tradebook(uploaded_file)
+                st.success("✅ Tradebook parsed successfully.")
+            except Exception as e:
+                st.error(f"❌ Error processing file: {e}")
+                summary_df = None
+        else:
+            summary_df = None
+
+
 # --- PROCESS CSV ---
 if uploaded_file:
     try:
@@ -29,6 +41,11 @@ if uploaded_file:
         st.markdown("<div class='table-container'>", unsafe_allow_html=True)
         st.dataframe(summary_df, use_container_width=False)
         st.markdown("</div>", unsafe_allow_html=True)
-
+        
+        if summary_df is not None:
+            st.markdown("<div class='table-container'>", unsafe_allow_html=True)
+            st.dataframe(summary_df, use_container_width=True, height=500)
+            st.markdown("</div>", unsafe_allow_html=True)
+    
     except Exception as e:
         st.error(f"❌ Error processing file: {e}")
