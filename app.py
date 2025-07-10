@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from summary_utils import parse_tradebook
+from summary_utils import parse_tradebook get_trade_date_range
 
 st.set_page_config(page_title="Trade History Visualization", layout="wide")
 
@@ -33,6 +33,7 @@ with st.container():
     if uploaded_file:
         try:
             summary_df = parse_tradebook(uploaded_file)
+            oldest_date, latest_date = get_trade_date_range(df)
         
             # Recommended layout: center the table using Streamlit's grid
             left, center, right = st.columns([1, 6, 1])
@@ -41,6 +42,7 @@ with st.container():
 
                 # Subheader
                 st.subheader("Trade Summary")
+                st.subheader(f"Trade Summary between {oldest_date} to {latest_date}")
                 
                 # Row styling for Buy/Sell
                 def highlight_buysell(row):
