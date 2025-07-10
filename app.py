@@ -9,7 +9,7 @@ with open("assets/style.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # --- HEADER ---
-st.markdown("<h1 style='text-align: left; margin-bottom: 10px;'>Trade History Visualization</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; margin-bottom: 10px;'>Trade History Visualization</h1>", unsafe_allow_html=True)
 
 # --- FILE UPLOADER in top-right ---
 with st.container():
