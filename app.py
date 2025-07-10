@@ -39,7 +39,20 @@ with st.container():
 
             with center:
                 st.subheader("Trade Summary")
-                st.dataframe(summary_df, use_container_width=True, height=500)
+                # Color rows based on Buy/Sell Type
+                def highlight_buysell(row):
+                    if row['Buy/Sell Type'].upper() == 'BUY':
+                        return ['background-color: #144d3f; color: white'] * len(row)
+                    elif row['Buy/Sell Type'].upper() == 'SELL':
+                        return ['background-color: #4a1f1f; color: white'] * len(row)
+                    else:
+                        return [''] * len(row)
+                
+                # Apply styling
+                styled_df = summary_df.style.apply(highlight_buysell, axis=1)
+                
+                # Display styled DataFrame (interactive!)
+                st.dataframe(styled_df, use_container_width=True, height=500)               
 
 
             
