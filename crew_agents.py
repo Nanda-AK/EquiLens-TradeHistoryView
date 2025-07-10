@@ -5,9 +5,10 @@ sys.modules['sqlite3'] = pysqlite3
 import os
 from crewai import Crew, Task
 from yfinance import Ticker
-# Use chat-based LLM to avoid langchain_community fallback
+# Use ChatOpenAI for LLM
 from langchain.chat_models import ChatOpenAI
-from langchain.agents import create_pandas_dataframe_agent
+# Updated import for pandas dataframe agent
+from langchain_experimental.agents import create_pandas_dataframe_agent
 
 # Task to fetch the live price of a given symbol
 def fetch_current_price(context):
@@ -33,7 +34,7 @@ def enrich_current_prices(summary_df):
 
 # Create a LangChain React-style agent for chatting with the DataFrame
 def create_summary_agent(summary_df):
-    # Ensure API key is set in environment before calling this
+    # Ensure OPENAI_API_KEY is set in environment
     llm = ChatOpenAI(temperature=0)
     agent = create_pandas_dataframe_agent(
         llm,
