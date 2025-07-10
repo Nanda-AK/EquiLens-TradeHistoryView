@@ -1,6 +1,11 @@
 import streamlit as st
 import pandas as pd
 from summary_utils import parse_tradebook
+from crew_agents import enrich_current_prices, create_summary_agent
+
+# — Load OpenAI key from Streamlit secrets into env
+import os
+os.environ[\"OPENAI_API_KEY\"] = st.secrets[\"openai\"][\"api_key\"]
 
 st.set_page_config(page_title="Trade History Visualization", layout="wide")
 
@@ -33,6 +38,9 @@ with st.container():
     if uploaded_file:
         try:
             summary_df, oldest_date, latest_date = parse_tradebook(uploaded_file)
+            
+            # —— Use Case 1: Enrich with current market price
+            summary_df = enrich_current_prices(summary_df)
     
             # Recommended layout: center the table using Streamlit's grid
             left, center, right = st.columns([1, 6, 1])
@@ -65,7 +73,16 @@ with st.container():
                 
                 # Display
                 st.dataframe(styled_df, use_container_width=True, height=500)
-     
+
+    # —— Use Case 2: Chat with your summary via a React‐style agent
+    st.markdown(\"## Chat with Your Trade Summary\")
+    if \"agent\" not in st.session_state:
+        st.session_state.agent = create_summary_agent(summary_df)
+    
+    question = st.text_input(\"Ask a question about your trades:\", key=\"trade_query\")
+    if question:
+        answer = st.session_state.agent.run(question)
+        st.write(answer)     
 
 
             
