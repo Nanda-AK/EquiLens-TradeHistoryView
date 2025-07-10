@@ -1,0 +1,22 @@
+/* Dark blue tone */
+body {
+    background-color: #0e1a2b;
+    color: #ffffff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #59bfff !important;
+}
+
+.stButton>button {
+    background-color: #1f2f46;
+    color: white;
+    border-radius: 5px;
+    border: 1px solid #59bfff;
+}
+
+.stDataFrame {
+    background-color: #111827;
+    border-radius: 8px;
+    color: white;
+}
