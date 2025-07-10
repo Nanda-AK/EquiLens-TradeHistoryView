@@ -34,10 +34,13 @@ with st.container():
         try:
             summary_df = parse_tradebook(uploaded_file)
         
-            # Center the summary table
-            st.markdown("<div class='table-container'>", unsafe_allow_html=True)
-            st.dataframe(summary_df, use_container_width=False)
-            st.markdown("</div>", unsafe_allow_html=True)
+            # Add a clear heading above the table
+            st.subheader("Trade Summary Table")
+
+            # Use a real Streamlit container for layout control
+            with st.container():
+                st.dataframe(summary_df, use_container_width=True, height=500)
+
             
         except Exception as e:
             st.error(f"❌ Error processing file: {e}")
