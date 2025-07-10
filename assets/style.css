@@ -36,11 +36,4 @@ tbody tr td {
     color: #ffffff;
 }
 
-.table-container {
-    display: flex;
-    justify-content: center;
-    padding-top: 20px;
-    margin-bottom: 60px;
-    max-width: 30vw;
-    border: 2px solid red; /* visualize the container */
-}
+
