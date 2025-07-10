@@ -33,7 +33,6 @@ with st.container():
     if uploaded_file:
         try:
             summary_df = parse_tradebook(uploaded_file)
-            st.success("✅ Tradebook parsed successfully.")
         
             # Center the summary table
             st.markdown("<div class='table-container'>", unsafe_allow_html=True)
