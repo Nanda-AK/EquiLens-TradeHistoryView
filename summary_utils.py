@@ -48,7 +48,21 @@ def parse_tradebook(file) -> pd.DataFrame:
     summary['Avg_Price'] = summary['Avg_Price'].round(2)
     summary['Total_Value'] = summary['Total_Value'].round(2)
 
-    df['trade_date'] = pd.to_datetime(df['trade_date'], dayfirst=True)
+        # make sure it’s a clean string
+    df['trade_date'] = df['trade_date'].astype(str).str.strip()
+
+    # parse exactly as YYYY-MM-DD, coerce any bad values to NaT
+    df['trade_date'] = pd.to_datetime(
+        df['trade_date'],
+        format='%Y-%m-%d',
+        errors='coerce'
+    )
+
+    # if anything failed to parse, you’ll see it here
+    if df['trade_date'].isna().any():
+        bad = df.loc[df['trade_date'].isna(), 'trade_date'].unique()
+        raise ValueError(f"Could not parse these trade_date values: {bad}")
+
     oldest_date = df['trade_date'].min().strftime("%d-%b-%Y")
     latest_date = df['trade_date'].max().strftime("%d-%b-%Y")
     
