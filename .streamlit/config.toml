@@ -1,0 +1,7 @@
+[theme]
+base="dark"
+primaryColor="#4FC3F7"         # Light blue
+backgroundColor="#0e1a2b"      # Near black/navy
+secondaryBackgroundColor="#111827"  # Slightly lighter card backgrounds
+textColor="#ffffff"
+font="sans serif"
